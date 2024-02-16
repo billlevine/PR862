@@ -1,0 +1,23 @@
+name: "GH Runner Shell"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+  pull_request:
+  merge_group:
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.head_ref || github.sha }}"
+  cancel-in-progress: true
+
+jobs:
+
+  GH-runner-shell:
+    name: "GH Runner Shell"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
